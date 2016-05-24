@@ -1,8 +1,4 @@
-﻿// Course: CIT 255
-// Assignment: Laboratory 07
-// Author: Instructor
-
-using System;
+﻿using System;
 using System.IO;
 
 public class clsZipCode

@@ -1,8 +1,4 @@
-﻿// Course: CIT 255
-// Assignment: Laboratory 07
-// Author: Instructor
-
-using System;
+﻿using System;
 using System.Windows.Forms;
 using System.IO;
 using System.Data.OleDb;
@@ -158,7 +154,6 @@ public partial class frmAddUpdate : Form
 
         if (Mode == "Add")
         {
-            //frmMain.mZipCodeResultsAL.Add(ZipCode);
             addMode();
         }
         else

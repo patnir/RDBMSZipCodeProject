@@ -1,8 +1,4 @@
-﻿// Course: CIT 255
-// Assignment: Laboratory 07
-// Author: Instructor
-
-using System;
+﻿using System;
 using System.Windows.Forms;
 using System.Collections;
 using System.IO;
@@ -12,8 +8,6 @@ public partial class frmMain : Form
 {
     private const string mDatabaseFileName = "zipCodes.accdb";
     
-    // private OleDbConnection mDB = new OleDbConnection();
-
     public ArrayList mZipCodeResultsAL = new ArrayList();
     
     public static void Main()
@@ -26,18 +20,6 @@ public partial class frmMain : Form
     {
         InitializeComponent();
     }
-
-    //private void opendatabaseconnection()
-    //{
-    //    string fullfilename;
-    //    string connectionstring;
-
-    //    fullfilename = path.combine(application.startuppath, mdatabasefilename);
-    //    connectionstring = "provider=microsoft.ace.oledb.12.0;data source=" + fullfilename;
-
-    //    mdb.connectionstring = connectionstring;
-    //    mdb.open();
-    //}
 
     private void btnClose_Click(object sender, EventArgs e)
     {
@@ -102,14 +84,10 @@ public partial class frmMain : Form
 
     private void btnUpdate_Click(object sender, EventArgs e)
     {
-        // Confirm that an item in the list box has been selected.
-
         if (lstZipCodes.SelectedItems.Count == 0)
         {
             return;
         }
-
-        // Show the update dialog.
 
         frmAddUpdate addUpdate = new frmAddUpdate();
         addUpdate.Mode = "Update";
@@ -130,13 +108,9 @@ public partial class frmMain : Form
         clsZipCode currentZipCode;
         string searchFor;
         
-        // First create a new ArrayList containing all matching zip code objects.
-
         mZipCodeResultsAL.Clear();
 
         searchFor = txtSearchFor.Text.ToUpper();
-
-        // Finally load the listbox with the list of matching zip codes.
 
         lstZipCodes.Items.Clear();
         string sql = "SELECT * FROM ZipCodes ORDER BY City, State, ZipCode";

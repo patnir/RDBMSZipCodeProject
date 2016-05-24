@@ -1,8 +1,4 @@
-﻿// Course: CIT 255
-// Assignment: Laboratory XX
-// Author: Instructor
-
-public partial class frmMain
+﻿public partial class frmMain
 {
     #region Windows Form Designer generated code
 

@@ -1,5 +1,4 @@
-﻿
-public partial class frmAddUpdate
+﻿public partial class frmAddUpdate
 {
     #region Windows Form Designer generated code
     private void InitializeComponent()
