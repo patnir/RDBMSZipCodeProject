@@ -11,7 +11,6 @@ using System.Data.OleDb;
 public partial class frmMain : Form
 {
     private const string mDatabaseFileName = "zipCodes.accdb";
-    private string mFullTextFileName;
     
     // private OleDbConnection mDB = new OleDbConnection();
 
@@ -47,45 +46,41 @@ public partial class frmMain : Form
 
     private void btnDelete_Click(object sender, EventArgs e)
     {
-        /*
-        clsZipCode soughtZipCode = null;
-        clsZipCode currentZipCode = null;
-
-        // Confirm that an item in the list box has been selected.
-
         if (lstZipCodes.SelectedItems.Count == 0)
         {
             return;
         }
 
-        // Ask for confirmation and then delete the Zip Code.
-
-        if (messageBoxYesNo("Are you sure you want to delete this Zip Code?") != DialogResult.Yes)
+        if (messageBoxYesNo("Are you sure you want to delete this ZipCode?") == DialogResult.No)
         {
             return;
         }
 
-        int index = lstZipCodes.SelectedIndex;
-        soughtZipCode = (clsZipCode)mZipCodeResultsAL[index];
+        string checkedItem = lstZipCodes.SelectedItems[0].ToString();
 
-        // Remove the zip code from the results array list currently displayed in the list box.
+        string checkedZipCode = checkedItem.Split(' ')[0].Trim();
 
-        mZipCodeResultsAL.RemoveAt(index);
+        string sql;
 
-        // Locate the zip code within the master array list, then remove it.
+        sql = "DELETE FROM ZipCodes WHERE ZipCode = " + toSql(checkedZipCode);
 
-        for (int i = 0; i < mZipCodeMasterAL.Count; i++)
+        using (OleDbConnection db = new OleDbConnection())
         {
-            currentZipCode = (clsZipCode)mZipCodeMasterAL[i];
+            string fullFileName;
+            string connectionString;
 
-            if (currentZipCode.ZipCode == soughtZipCode.ZipCode)
+            fullFileName = Path.Combine(Application.StartupPath, mDatabaseFileName);
+            connectionString = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + fullFileName;
+
+            db.ConnectionString = connectionString;
+            db.Open();
+            using (OleDbCommand cmd = new OleDbCommand(sql, db))
             {
-                mZipCodeMasterAL.RemoveAt(i);
-                break;
+                cmd.ExecuteNonQuery();
             }
         }
 
-        loadListBox();*/
+        loadListBox();
     }
 
     private void btnSearch_Click(object sender, EventArgs e)

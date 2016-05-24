@@ -11,7 +11,7 @@ public partial class frmAddUpdate : Form
 {
     public clsZipCode ZipCode;
     public string Mode;
-    private const string mDatabaseFileName = "cit255_zipCodes.accdb";
+    private const string mDatabaseFileName = "zipCodes.accdb";
 
 
     public frmAddUpdate()
@@ -171,12 +171,35 @@ public partial class frmAddUpdate : Form
 
     private void updateMode()
     {
+        string sql = "UPDATE ZipCodes SET "
+            + "City = " + toSql(ZipCode.City) + ", "
+            + "State = " + toSql(ZipCode.State) + ", "
+            + "Longitude = " + toSql(ZipCode.Longitude) + ", "
+            + "Latitude = " + toSql(ZipCode.Latitude) + ", "
+            + "Active = " + toSql(ZipCode.Active) + ", "
+            + "LastUpdated = " + toSql(ZipCode.LastUpdated)
 
+            + " WHERE ZipCode = " + toSql(ZipCode.ZipCode);
+        using (OleDbConnection db = new OleDbConnection())
+        {
+            string fullFileName;
+            string connectionString;
+
+            fullFileName = Path.Combine(Application.StartupPath, mDatabaseFileName);
+            connectionString = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + fullFileName;
+
+            db.ConnectionString = connectionString;
+            db.Open();
+            using (OleDbCommand cmd = new OleDbCommand(sql, db))
+            {
+                cmd.ExecuteNonQuery();
+            }
+            db.Close();
+        }
     }
 
     private void addMode()
     {
-
         string sql = "INSERT INTO ZipCodes ("
             + "ZipCode, " + "City, " + "State, " + "Longitude, "
             + "Latitude, " + "Active, " + "LastUpdated" + ") VALUES ("
@@ -202,8 +225,9 @@ public partial class frmAddUpdate : Form
             db.Open();
             using (OleDbCommand cmd = new OleDbCommand(sql, db))
             {
-
+                cmd.ExecuteNonQuery();
             }
+            db.Close();
         }
     }
 
